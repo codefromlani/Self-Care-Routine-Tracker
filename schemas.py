@@ -33,6 +33,13 @@ class SelfCareActivity(BaseModel):
             }
         }
 
+class ActivityUpdate(BaseModel):
+    activity_name: Optional[str] = None
+    duration_minutes: Optional[int] = None
+    date: Optional[str] = None 
+    category: Optional[CategoryEnum] = None
+    notes: Optional[str] = None
+
 class ActivityStats(BaseModel):
     total_activities: int
     total_duration_munites: int
