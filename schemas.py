@@ -33,6 +33,11 @@ class SelfCareActivity(BaseModel):
             }
         }
 
+class ActivityResponse(SelfCareActivity):
+
+    class config:
+        orm_mode: True
+
 class ActivityUpdate(BaseModel):
     activity_name: Optional[str] = None
     duration_minutes: Optional[int] = None
@@ -42,7 +47,7 @@ class ActivityUpdate(BaseModel):
 
 class ActivityStats(BaseModel):
     total_activities: int
-    total_duration_munites: int
+    total_duration_minutes: int
     activities_by_category: Dict[str, int]
     average_duration: float
     streak_days: int
