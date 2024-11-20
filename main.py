@@ -12,7 +12,6 @@ from datetime import date, timedelta
 app = FastAPI(title="Self-Care Routine Tracker")
 
 
-#Routes
 @app.post("/activities/", response_model=SelfCareActivity)
 async def create_activity(activity: SelfCareActivity, db: Session = Depends(get_db)) -> SelfCareActivity:
     db_activity = models.Activity(**activity.dict())
