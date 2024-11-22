@@ -13,7 +13,7 @@ app = FastAPI(title="Self-Care Routine Tracker")
 
 
 @app.post("/activities/", response_model=SelfCareActivity)
-async def create_activity(activity: SelfCareActivity, db: Session = Depends(get_db)) -> SelfCareActivity:
+def create_activity(activity: SelfCareActivity, db: Session = Depends(get_db)):
     db_activity = models.Activity(**activity.dict())
     db.add(db_activity)
     db.commit()
@@ -28,7 +28,7 @@ async def get_activities(
     category: Optional[CategoryEnum] = None,
     search: Optional[str] = None,
     db: Session = Depends(get_db)
-) -> List[SelfCareActivity]:
+):
     query = db.query(models.Activity)
 
     if start_date:
@@ -50,7 +50,7 @@ async def get_activities(
 
 @app.get("/activities/{activity_id}", response_model=SelfCareActivity)
 async def get_activity(activity_id: int, db: Session = Depends(get_db)) -> SelfCareActivity:
-    activity = db.query(models.Activity).filter(models.Activity.id == activity_id). first()
+    activity = db.query(models.Activity).filter(models.Activity.id == activity_id).first()
     if activity is None:
         raise HTTPException(status_code=404, detail=f"Activity with ID {activity_id} not found")
     
@@ -72,7 +72,7 @@ async def update_activity(activity_id: int, update_data: ActivityUpdate, db: Ses
     db.refresh(activity)
     return activity
 
-@app.delete("activities/{activity_id}", status_code=204)
+@app.delete("/activities/{activity_id}", status_code=204)
 async def delete_activity(activity_id: int, db: Session = Depends(get_db)):
     activity = db.query(models.Activity).filter(models.Activity.id == activity_id).first()
     if activity is None:
