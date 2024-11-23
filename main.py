@@ -7,7 +7,7 @@ from typing import List, Optional
 from datetime import date, timedelta
 
 
-#models.Base.metadata.create_all(bind=engine)
+models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI(title="Self-Care Routine Tracker")
 

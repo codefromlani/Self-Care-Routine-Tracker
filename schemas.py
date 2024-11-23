@@ -45,6 +45,9 @@ class ActivityUpdate(BaseModel):
     category: Optional[CategoryEnum] = None
     notes: Optional[str] = None
 
+    class Config:
+        orm_mode = True 
+
 class ActivityStats(BaseModel):
     total_activities: int
     total_duration_minutes: int
